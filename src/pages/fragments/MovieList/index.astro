@@ -1,12 +1,21 @@
 ---
 import MovieCard from '../../../components/MovieCard.astro'
 
-const popularMoviesResponse = await fetch(
-  'https://api.themoviedb.org/3/movie/popular?api_key=' +
-    import.meta.env.TMDB_API_KEY
-)
+const popularMoviesResponse = await fetch(`https://api.themoviedb.org/4/list/8455345?language=en-US&sort_by=title&page=1`,
+    {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: `Bearer ${import.meta.env.TMDB_TOKEN}`
+  }
+})
+// const popularMoviesResponse = await fetch(
+//   'https://api.themoviedb.org/4/list/8455345?language=en-US&page=1?api_key=' +
+//     import.meta.env.TMDB_API_KEY
+// )
 const popularMoviesData = await popularMoviesResponse.json()
 const popularMovies = popularMoviesData.results
+console.log("POP:", popularMovies)
 ---
 
 <div class="container mx-auto px-4 pt-16 mb-16">
